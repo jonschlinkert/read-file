@@ -1,0 +1,54 @@
+{
+  "name": "read-file",
+  "description": "Lightweight methods for reading from the file system, async and sync, with extras for stripping byte order marks and normalizing newlines.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/read-file",
+  "author": {
+    "name": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonschlinkert/read-file.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/read-file/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jonschlinkert/read-file/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": [
+    "ascyn",
+    "bom",
+    "byte order mark",
+    "file system",
+    "file",
+    "fs",
+    "newline",
+    "normalize",
+    "read async",
+    "read file",
+    "read sync",
+    "read",
+    "return",
+    "sync"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "mocha -R test"
+  },
+  "devDependencies": {
+    "verb": "~0.2.0",
+    "chai": "~1.9.1"
+  },
+  "dependencies": {
+    "graceful-fs": "~2.0.3",
+    "async": "~0.7.0"
+  }
+}
