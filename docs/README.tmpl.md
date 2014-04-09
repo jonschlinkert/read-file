@@ -3,7 +3,7 @@
 > {%= description %}
 
 ## Install
-{%= include("install") %}
+{%= include("install", {save: '--save'}) %}
 
 ## api
 {%= docs("api") %}

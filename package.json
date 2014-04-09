@@ -1,7 +1,7 @@
 {
   "name": "read-file",
   "description": "Lightweight methods for reading from the file system, async and sync, with extras for stripping byte order marks and normalizing newlines.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/jonschlinkert/read-file",
   "author": {
     "name": "Jon Schlinkert",
