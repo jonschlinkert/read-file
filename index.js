@@ -1,65 +1,60 @@
 /**
  * read-file <https://github.com/assemble/read-file>
  *
- * Copyright (c) 2014 Jon Schlinkert, Brian Woodward, contributors.
+ * Copyright (c) 2014, 2015 Jon Schlinkert.
  * Licensed under the MIT license.
  */
 
-const fs = require('graceful-fs');
-const os = require('os');
-const async = require('async');
-const file = module.exports = {};
+var fs = require('fs');
 
-// Normalize to newlines
-file.normalizeNL = function(str) {
-  return str.replace(/\r\n|\n/g, '\n');
-};
-
-file.preserveBOM = false;
-file.stripBOM = function(str) {
-  // Transform EOL
-  var contents = (os.EOL === '\n') ? str : str.replace(os.EOL, '\n');
-  // Strip UTF BOM
-  if (!file.preserveBOM && contents.charCodeAt(0) === 0xFEFF) {
-    contents = contents.substring(1);
-    contents = contents.replace(/^\uFEFF/, '');
+function read(fp, opts, cb) {
+  if (typeof opts === 'function') {
+    cb = opts;
+    opts = {};
   }
-  return contents;
-};
 
+  if (typeof cb !== 'function') {
+    throw new TypeError('read-file async expects a callback function.');
+  }
 
-// Read file synchronously
-file.readFileSync = function(filepath, enc) {
-  enc = enc || 'utf8';
-  var buffer = fs.readFileSync(String(filepath), enc);
+  if (typeof fp !== 'string') {
+    cb(new TypeError('read-file async expects a string.'));
+  }
+
+  fs.readFile(fp, opts, function (err, buffer) {
+    if (err) return cb(err);
+    cb(null, normalize(buffer, opts));
+  });
+}
+
+read.sync = function(fp, opts) {
+  if (typeof fp !== 'string') {
+    throw new TypeError('read-file sync expects a string.');
+  }
   try {
-    return file.stripBOM(buffer);
+    return normalize(fs.readFileSync(fp, opts), opts);
   } catch (err) {
-    err.message = 'Failed to read "' + filepath + '": ' + err.message;
-    throw err;
+    err.message = 'Failed to read "' + fp + '": ' + err.message;
+    throw new Error(err);
   }
 };
 
-
-// Read file async
-file.readFile = function (filepath, enc, callback) {
-  if (enc && typeof enc === 'function') {
-    callback = enc;
-    enc = 'utf8';
+function normalize(str, opts) {
+  str = stripBom(str);
+  if (typeof opts === 'object' && opts.normalize === true) {
+    return String(str).replace(/\r\n|\n/g, '\n');
   }
+  return str;
+}
 
-  async.waterfall([
+function stripBom(str) {
+  return typeof str === 'string' && str.charAt(0) === '\uFEFF'
+    ? str.slice(1)
+    : str;
+}
 
-    function (next) {
-      fs.readFile(String(filepath),  (enc || 'utf8'), next);
-    }, function (contents, next) {
-      try {
-        next(null, file.stripBOM(contents));
-      } catch (err) {
-        err.message = 'Failed to read "' + filepath + '": ' + err.message;
-        next(err);
-      }
-    }
-  ],
-    callback);
-};
+/**
+ * Expose `read`
+ */
+
+module.exports = read;
