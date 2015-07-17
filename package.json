@@ -1,54 +1,42 @@
 {
   "name": "read-file",
-  "description": "Lightweight methods for reading from the file system, async and sync, with extras for stripping byte order marks and normalizing newlines.",
-  "version": "0.1.1",
+  "description": "Thin wrapper around fs.readFile and fs.readFileSync that also strips byte order marks when `utf8` encoding is chosen. Also optionally replaces windows newlines with unix newlines.",
+  "version": "0.2.0",
   "homepage": "https://github.com/jonschlinkert/read-file",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "https://github.com/jonschlinkert"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jonschlinkert/read-file.git"
-  },
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/read-file",
   "bugs": {
     "url": "https://github.com/jonschlinkert/read-file/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jonschlinkert/read-file/blob/master/LICENSE-MIT"
-    }
-  ],
-  "keywords": [
-    "ascyn",
-    "bom",
-    "byte order mark",
-    "file system",
-    "file",
-    "fs",
-    "newline",
-    "normalize",
-    "read async",
-    "read file",
-    "read sync",
-    "read",
-    "return",
-    "sync"
+  "license": "MIT",
+  "files": [
+    "index.js"
   ],
   "main": "index.js",
   "engines": {
     "node": ">=0.8"
   },
   "scripts": {
-    "test": "mocha -R test"
+    "test": "mocha"
   },
-  "devDependencies": {
-    "verb": "~0.2.0",
-    "chai": "~1.9.1"
-  },
-  "dependencies": {
-    "graceful-fs": "~2.0.3",
-    "async": "~0.7.0"
+  "keywords": [
+    "bom",
+    "file",
+    "fs",
+    "path",
+    "read",
+    "util",
+    "readfile",
+    "readfilesync"
+  ],
+  "verb": {
+    "related": {
+      "list": [
+        "read-yaml",
+        "read-data",
+        "write",
+        "copy"
+      ]
+    }
   }
 }
