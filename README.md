@@ -35,7 +35,7 @@ read('foo.txt', 'utf8', function(err, buffer) {
 });
 
 // or
-read('foo.txt', {encoding: 'utf8'} function(err, buffer) {
+read('foo.txt', {encoding: 'utf8'}, function(err, buffer) {
   //=> 'some contents...'
 });
 ```
